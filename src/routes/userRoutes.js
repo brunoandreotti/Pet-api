@@ -13,8 +13,8 @@ router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 
 //Rota deve retornar os dados de um usuário baseado no ID
-router.get('/:id', UserController.getUserById)
+router.get('/info', ensureAuthenticated, UserController.getUserById)
 
-router.patch('/edit/:id', ensureAuthenticated, UserController.editUser)
+router.patch('/edit', ensureAuthenticated, UserController.editUser)
 
 export default router

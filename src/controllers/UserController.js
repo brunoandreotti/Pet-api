@@ -118,7 +118,7 @@ export default class UserController {
   }
 
   static async getUserById(req, res) {
-    const id = req.params.id
+    const id = req.user.id
 
     //Retorna os dados do usuário baseado no id menos o password
     const user = await User.findById(id).select('-password')
@@ -134,14 +134,95 @@ export default class UserController {
   }
 
   static async editUser(req, res) {
+    //Pega o ID do usuário vindo da autenticação
     const id = req.user.id
+
+    const { name, email, phone, password, confirmpassword } = req.body
+
+    const image = ''
 
     const user = await User.findById(id).select('-password')
 
-    return res.status(200).json({
-      status: 200,
-      message: 'Deu certo o update!',
-      user
-    })
+    //Validações
+    //Checa se o usuário existe
+    if (!user) {
+      return res.status(422).json({
+        status: 422,
+        message: 'Usuário não encontrado'
+      })
+    }
+
+    if (!name || !email || !password || !phone || !confirmpassword) {
+      res.status(422).json({
+        status: 422,
+        message: 'Todos os campos devem ser preenchidos!'
+      })
+
+      return
+    }
+
+    user.name = name
+    user.phone = phone
+
+    //Checa se o e-mail informado é diferente do atual e se existe algum outro usuário utilizando o email informado
+
+    //Verifica se existe um usuário com o usuário informado
+    const userExists = await User.findOne({ email })
+
+    //Se o e-mail informado por diferente do cadastrado mas já existir um usuário utilizando o email
+    if (user.email !== email && userExists) {
+      res.status(422).json({
+        status: 422,
+        message: 'E-mail em uso!'
+      })
+
+      return
+    }
+
+    //Se passar nas validações de email
+    user.email = email
+
+    if (password.length < 8) {
+      res.status(422).json({
+        status: 422,
+        message: 'A senha deve conter pelo menos 8 caracteres!'
+      })
+
+      return
+    }
+
+    if (password !== confirmpassword) {
+      res.status(422).json({
+        status: 422,
+        message: 'A confirmação de senha deve ser igual à senha!'
+      })
+
+      return
+    } else if (password === confirmpassword && password != null) {
+      //Gera nova senha criptografada
+      const salt = await bcrypt.genSalt(12)
+      const hashedPassword = await bcrypt.hash(password, salt)
+
+      user.password = hashedPassword
+    }
+
+    try {
+      //Retorna o usuário atualizado
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user._id },
+        { $set: user },
+        { new: true }
+      ).select('-password')
+
+      res.status(200).json({
+        status: 200,
+        message: 'Usuário atualizado com sucesso!',
+        updatedUser
+      })
+    } catch (error) {
+      return res.status(500).json({ status: 500, message: error })
+    }
+
+    
   }
 }

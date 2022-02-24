@@ -20,7 +20,7 @@ const ensureAuthenticated = (req, res, next) => {
     }
     next()
   } catch (error) {
-    return res.status(401).json({ status: 401, message: error.message })
+    return res.status(400).json({ status: 400, message: 'Token inválido!' })
   }
 }
 
