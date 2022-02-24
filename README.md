@@ -23,9 +23,9 @@
 
 
 # Sobre
-O objetivo do projeto é criar uma API Rest de adoção de Pets.
+O objetivo do projeto é criar uma API REST de adoção de Pets.
 
-Na API será possível cadastrar, logar, modificar infomrações de um usuário, cadastrar e auterar informarções de pets, solicitar uma adoção e completar uma adoção.
+Na API será possível cadastrar, fazer login, modificar informações de um usuário, cadastrar e alterar informações de pets, solicitar uma adoção e completar uma adoção.
 
 # Conhecimentos Praticados
 
