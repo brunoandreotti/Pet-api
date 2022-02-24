@@ -23,9 +23,9 @@
 
 
 # Sobre
-O objetivo do projeto foi criar um sistema para compartilhar Pensamentos, com a finalidade de colocar em prática os meus conhecimentos em Express, Autenticação, Sequelize e MVC.
+O objetivo do projeto é criar uma API Rest de adoção de Pets.
 
-Na aplicação é possível cadastrar um usuário, logar com um usuário, visualizar todos os pensamentos enviados outros usuários, visualizar os pensamentos enviados pelo próprio usuário e adicionar, editar, excluir, buscar e filtrar pensamentos.
+Na API será possível cadastrar, logar, modificar infomrações de um usuário, cadastrar e auterar informarções de pets, solicitar uma adoção e completar uma adoção.
 
 # Conhecimentos Praticados
 
