@@ -2,12 +2,12 @@
 
 <br />
 <p align="center">
-    <img src="" alt="Logo" width="150">
+<!--     <img src="" alt="Logo" width="150"> -->
 
   <h3 align="center">Pet API com NodeJS, Express, JWT, MongoDB e Mongoose</h3>
  <br />
   <p align="center">
-     Pensamentos
+     Pet API REST
       <p align="center">
   <a href="#sobre"> Sobre </a> |
   <a href="#conhecimentos-praticados"> Conhecimentos praticados </a> |
@@ -16,7 +16,7 @@
        <br />
     <br />
     <h1 align="center">
-    <img src="" alt="gif-readme">
+<!--     <img src="" alt="gif-readme"> -->
  </h1>
   </p>
 </p>
