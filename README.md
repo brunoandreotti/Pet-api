@@ -28,12 +28,6 @@ O objetivo do projeto foi criar um sistema para compartilhar Pensamentos, com a 
 Na aplicação é possível cadastrar um usuário, logar com um usuário, visualizar todos os pensamentos enviados outros usuários, visualizar os pensamentos enviados pelo próprio usuário e adicionar, editar, excluir, buscar e filtrar pensamentos.
 
 # Conhecimentos Praticados
-✔ NodeJs <br>
-✔ Express <br>
-✔ Express-session <br>
-✔ Sequelize <br>
-✔ CRUD com Sequelize <br>
-✔ Padrão MVC
 
 
 # Rotas da aplicação:
