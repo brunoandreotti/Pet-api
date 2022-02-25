@@ -3,9 +3,15 @@ import { getToken } from '../services/getToken.js'
 
 const ensureAuthenticated = (req, res, next) => {
   const authHeaders = req.headers.authorization
+  const cookieHeaders = req.headers.cookie
 
-  //Verificado se há um header de autenticação
-  if (!authHeaders) {
+  //Verificado se há um header de authorization
+  // if (!authHeaders) {
+  //   return res.status(401).json({ status: 401, message: 'Acesso Negado!' })
+  // }
+
+  //Verificado se há um header de cookie
+  if (!cookieHeaders) {
     return res.status(401).json({ status: 401, message: 'Acesso Negado!' })
   }
 

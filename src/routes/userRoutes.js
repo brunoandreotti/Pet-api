@@ -12,6 +12,9 @@ router.post('/register', UserController.register)
 //Rota deve logar um usuário existente no banco de dados
 router.post('/login', UserController.login)
 
+//Rota deve deslogar um usuário existente no banco de dados
+router.get('/logout', UserController.logout)
+
 //Rota deve retornar os dados de um usuário baseado no ID
 router.get('/info', ensureAuthenticated, UserController.getUserById)
 

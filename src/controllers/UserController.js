@@ -110,10 +110,17 @@ export default class UserController {
     const token = await createUserToken(user)
 
     //Retorna o token
-
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 86400000 })
     res.status(200).json({
       message: 'Você está autenticado!',
       token
+    })
+  }
+
+  static async logout(req, res) {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.status(200).json({
+      message: 'Você foi deslogado!'
     })
   }
 
@@ -222,7 +229,5 @@ export default class UserController {
     } catch (error) {
       return res.status(500).json({ status: 500, message: error })
     }
-
-    
   }
 }
