@@ -145,8 +145,7 @@ export default class UserController {
     const id = req.user.id
 
     const { name, email, phone, password, confirmpassword } = req.body
-
-    const image = ''
+    
 
     const user = await User.findById(id).select('-password')
 
@@ -159,7 +158,13 @@ export default class UserController {
       })
     }
 
-    if (!name || !email || !password || !phone || !confirmpassword) {
+    let image = ''
+
+    if (req.file) {
+      user.image = req.file.filename
+    }
+
+    if (!name || !email || !phone) {
       res.status(422).json({
         status: 422,
         message: 'Todos os campos devem ser preenchidos!'
@@ -189,29 +194,34 @@ export default class UserController {
     //Se passar nas validações de email
     user.email = email
 
-    if (password.length < 8) {
-      res.status(422).json({
-        status: 422,
-        message: 'A senha deve conter pelo menos 8 caracteres!'
-      })
-
-      return
+    //Senha
+    if(password && confirmpassword) {
+      if (password.length < 8) {
+        res.status(422).json({
+          status: 422,
+          message: 'A senha deve conter pelo menos 8 caracteres!'
+        })
+  
+        return
+      }
+  
+      if (password !== confirmpassword) {
+        res.status(422).json({
+          status: 422,
+          message: 'A confirmação de senha deve ser igual à senha!'
+        })
+  
+        return
+      } else if (password === confirmpassword && password != null) {
+        //Gera nova senha criptografada
+        const salt = await bcrypt.genSalt(12)
+        const hashedPassword = await bcrypt.hash(password, salt)
+  
+        user.password = hashedPassword
+      }
     }
 
-    if (password !== confirmpassword) {
-      res.status(422).json({
-        status: 422,
-        message: 'A confirmação de senha deve ser igual à senha!'
-      })
-
-      return
-    } else if (password === confirmpassword && password != null) {
-      //Gera nova senha criptografada
-      const salt = await bcrypt.genSalt(12)
-      const hashedPassword = await bcrypt.hash(password, salt)
-
-      user.password = hashedPassword
-    }
+    
 
     try {
       //Retorna o usuário atualizado
