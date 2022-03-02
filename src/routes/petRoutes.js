@@ -8,5 +8,6 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated.js'
 import { imageUpload } from '../services/imageUpload.js'
 
 router.post('/create', ensureAuthenticated, imageUpload.array('images'), PetController.create)
+router.get('/', PetController.getAll)
 
 export default router

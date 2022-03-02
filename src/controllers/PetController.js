@@ -80,4 +80,12 @@ export class PetController {
       res.status(500).json({ status: 500, message: `${error}` })
     }
   }
+
+  static async getAll(req, res) {
+    
+    //Procura todos os pets e ordena da data de criação mais recente
+    const pets = await Pet.find().sort('-createdAt')
+
+    res.status(200).json({ status: 200, pets})
+  }
 }
