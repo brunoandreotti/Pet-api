@@ -3,6 +3,7 @@ import express from 'express'
 
 //Routers
 import userRoutes from './routes/userRoutes.js'
+import petRoutes from './routes/petRoutes.js'
 
 const app = express()
 
@@ -17,5 +18,8 @@ app.use(express.static('public'))
 
 //Rotas
 app.use('/users', userRoutes)
+app.use('/pets', petRoutes)
+
+
 
 app.listen(3000, () => console.log('Servidor rodando!'))
